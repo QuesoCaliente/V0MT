@@ -2,6 +2,7 @@ import { Client, GatewayIntentBits } from "discord.js";
 import "dotenv/config";
 
 import { loadEvents } from "./loader";
+import { join } from "path";
 
 const client = new Client({
   intents: [
@@ -15,6 +16,6 @@ const client = new Client({
 });
 
 // Cargar eventos dinámicamente
-loadEvents(__dirname + "\\events", client);
+loadEvents(join(__dirname, "events"), client);
 
 client.login(process.env.DISCORD_TOKEN);

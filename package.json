@@ -1,0 +1,22 @@
+{
+  "name": "v0mt",
+  "version": "1.0.0",
+  "main": "dist/bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "rimraf dist && npx tsc && node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "discord.js": "^14.21.0",
+    "dotenv": "^17.2.1",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "typescript": "^5.9.2"
+  }
+}

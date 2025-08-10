@@ -1,0 +1,45 @@
+# Node
+node_modules/
+.env
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+dist/
+build/
+
+# TypeScript
+*.tsbuildinfo
+
+# VSCode
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# OS
+Thumbs.db
+
+# Others
+coverage/
+.idea/
+*.swp
+
+# Prisma
+prisma/dev.db
+prisma/dev.db-journal
+
+# Mac
+*.DS_Store
+
+# Windows
+*.exe
+*.dll
+*.bat
+*.cmd
+
+# Test
+/jest-test-results.json

@@ -5,7 +5,11 @@ import {
   Client,
   CommandInteraction,
 } from "discord.js";
-import { getInfoUrl } from "../../utils";
+// import { getInfoUrl } from "../../utils";
+import { getLinkPreview } from "../../utils/linkpreview";
+import { subirArchivo } from "../../utils/r2";
+import { basename } from "path";
+import mime from "mime-types";
 const categories = [
   "3d",
   "backgrounds",
@@ -62,35 +66,51 @@ export default {
 
     await interaction.deferReply();
     try {
-      const info = await getInfoUrl(url!);
-      const slug = info.title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)+/g, "");
+      const info = await getLinkPreview(url!);
 
-      await fetch(
-        "https://n8n-m89n.onrender.com/webhook-test/85e18e2e-f76d-46a3-b8a5-e08b4823c580",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: info.title,
-            url: info.url,
-            image: info.image,
-            slug: slug,
-            category: category ?? "-",
-            keywords: keywords ?? [],
-          }),
-        }
-      );
+      const filename = basename(info.image);
+      const ext = filename.includes(".") ? filename.split(".").pop() : "";
+      const contentType = mime.lookup(info.image) || "application/octet-stream";
+      const key = info.slug + (ext ? `.${ext}` : "");
 
-      await interaction.editReply(
-        `Recurso generado: ${info.title} (${info.url})\nSlug: ${slug}`
-      );
+      const imageResponse = await fetch(info.image);
+      const arrayBuffer = await imageResponse.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const image = await subirArchivo({
+        bucket: process.env.R2_BUCKET_NAME!,
+        key,
+        body: buffer,
+        contentType: contentType,
+      });
+
+      await fetch(process.env.N8N_WEBHOOK!, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: info.title,
+          url: info.url,
+          image,
+          slug: info.slug,
+          category: category ?? "-",
+          keywords: keywords ?? [],
+        }),
+      });
+
+      await interaction.editReply({
+        content: "Recurso enviado para revisión",
+      });
     } catch (error) {
-      await interaction.editReply("Ocurrió un error generando el recurso.");
+      await interaction.editReply({
+        embeds: [
+          {
+            title: "❌ Error",
+            description: "Ocurrió un error generando el recurso.",
+            color: 0xff0000,
+          },
+        ],
+      });
     }
   },
 };

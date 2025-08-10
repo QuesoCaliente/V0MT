@@ -19,7 +19,6 @@ function loadFilesRecursively(dir: string): string[] {
 
 export function loadCommands(commandsPath: string) {
   const files = loadFilesRecursively(commandsPath);
-  console.log("Archivos de comandos cargados:", files);
   const commands = [];
   for (const file of files) {
     const mod = require(file.replace(/\\/g, "/"));

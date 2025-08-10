@@ -1,6 +1,6 @@
 # V0MT Discord Bot
 
-Este proyecto es un bot de Discord desarrollado con TypeScript y Discord.js, preparado para subir recursos a Cloudflare R2 y generar previews enriquecidos.
+Este proyecto es un bot de Discord desarrollado con TypeScript y Discord.js, preparado para enviar información sobre recursos a N8N para ser subidos al sitio web AssetBox
 
 ## Requisitos
 

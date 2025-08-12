@@ -1,13 +1,13 @@
 import { REST, Routes } from "discord.js";
 import "dotenv/config";
 import { loadCommands } from "./loader";
-import { join } from "path";
+import { join, dirname } from "path";
 
 const clientId = process.env.CLIENT_ID!;
 const guildId = process.env.GUILD_ID!;
 const token = process.env.DISCORD_TOKEN!;
 
-const slashCommands = loadCommands(join(__dirname, "slashCommands"));
+const slashCommands = loadCommands(join(dirname(__dirname), "slashCommands"));
 
 console.log("SLash COMMANDS: ", slashCommands);
 

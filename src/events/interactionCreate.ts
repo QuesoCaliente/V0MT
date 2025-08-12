@@ -1,7 +1,7 @@
 import { Client, CommandInteraction, Interaction } from "discord.js";
 import { loadCommands } from "../loader";
-import { join } from "path";
-const slashCommands = loadCommands(join(__dirname, "slashCommands"));
+import { join, dirname } from "path";
+const slashCommands = loadCommands(join(dirname(__dirname), "slashCommands"));
 
 export default (client: Client): void => {
   client.on("interactionCreate", async (interaction: Interaction) => {

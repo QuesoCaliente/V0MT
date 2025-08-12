@@ -1,9 +1,8 @@
 import { Client, Events, Message } from "discord.js";
 import { loadCommands } from "../loader";
+import { join } from "path";
 
-const normalCommands = loadCommands(
-  __dirname.replace(/\\events$/, "\\commands")
-);
+const normalCommands = loadCommands(join(__dirname, "commands"));
 
 export default (client: Client) => {
   client.on(Events.MessageCreate, async (message: Message) => {

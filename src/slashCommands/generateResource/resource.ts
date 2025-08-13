@@ -95,6 +95,8 @@ export default {
           slug: info.slug,
           category: category ?? "-",
           keywords: keywords ?? [],
+          discord_user: interaction.user.id,
+          owner_id: process.env.OWNER_ID,
         }),
       });
 

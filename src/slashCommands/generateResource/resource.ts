@@ -104,6 +104,7 @@ export default {
         content: "Recurso enviado para revisión",
       });
     } catch (error) {
+      console.log("Error al generar el recurso:", error);
       await interaction.editReply({
         embeds: [
           {

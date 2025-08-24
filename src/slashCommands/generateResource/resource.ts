@@ -21,6 +21,8 @@ const categories = [
   "inspirations",
   "tools",
   "video",
+  "icons",
+  "component",
 ];
 
 export default {
